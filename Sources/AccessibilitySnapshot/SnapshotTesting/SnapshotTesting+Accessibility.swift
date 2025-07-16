@@ -51,6 +51,7 @@ extension Snapshotting where Value == UIView, Format == UIImage {
         drawHierarchyInKeyWindow: Bool = false,
         markerColors: [UIColor] = [],
         showUserInputLabels: Bool = true,
+        perceptualPrecision: Float = 1,
         shouldRunInHostApplication: Bool = true
     ) -> Snapshotting {
         guard !shouldRunInHostApplication || isRunningInHostApplication else {
@@ -58,7 +59,10 @@ extension Snapshotting where Value == UIView, Format == UIImage {
         }
 
         return Snapshotting<UIView, UIImage>
-            .image(drawHierarchyInKeyWindow: drawHierarchyInKeyWindow)
+            .image(
+                drawHierarchyInKeyWindow: drawHierarchyInKeyWindow,
+                perceptualPrecision: perceptualPrecision
+            )
             .pullback { view in
                 let containerView = AccessibilitySnapshotView(
                     containedView: view,
@@ -260,6 +264,7 @@ extension Snapshotting where Value == UIViewController, Format == UIImage {
         drawHierarchyInKeyWindow: Bool = false,
         markerColors: [UIColor] = [],
         showUserInputLabels: Bool = true,
+        perceptualPrecision: Float = 1,
         shouldRunInHostApplication: Bool = true
     ) -> Snapshotting {
         return Snapshotting<UIView, UIImage>
@@ -269,6 +274,7 @@ extension Snapshotting where Value == UIViewController, Format == UIImage {
                 drawHierarchyInKeyWindow: drawHierarchyInKeyWindow,
                 markerColors: markerColors,
                 showUserInputLabels: showUserInputLabels,
+                perceptualPrecision: perceptualPrecision,
                 shouldRunInHostApplication: shouldRunInHostApplication
             )
             .pullback { viewController in
