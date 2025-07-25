@@ -54,6 +54,7 @@ extension Snapshotting where Value: SwiftUI.View, Format == UIImage {
         drawHierarchyInKeyWindow: Bool = false,
         markerColors: [UIColor] = [],
         showUserInputLabels: Bool = true,
+        perceptualPrecision: Float = 1,
         shouldRunInHostApplication: Bool = true
     ) -> Snapshotting {
         return Snapshotting<UIViewController, UIImage>
@@ -63,6 +64,7 @@ extension Snapshotting where Value: SwiftUI.View, Format == UIImage {
                 drawHierarchyInKeyWindow: drawHierarchyInKeyWindow,
                 markerColors: markerColors,
                 showUserInputLabels: showUserInputLabels,
+                perceptualPrecision: perceptualPrecision,
                 shouldRunInHostApplication: shouldRunInHostApplication
             )
             .pullback { (view: Value) in
